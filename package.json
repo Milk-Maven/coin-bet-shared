@@ -4,7 +4,8 @@
   "description": "shared folder for golden calf project",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run updateShared && npm run --prefix ../backend start & npm run --prefix ../frontend dev",
+    "updateShared": "npx ts-node ../shared/script.ts"
   },
   "author": "Ty Fischer",
   "license": "ISC",
