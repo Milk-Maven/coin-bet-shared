@@ -1,8 +1,11 @@
+import { PostEntryResponse } from "deso-protocol";
 
 export const endpoints = {
-  offeringCreate: 'offering/create',
-  offeringGet: 'offering/get',
-  startWeek: 'game/start'
+  makeOffering: 'offering/make',
+  start: 'game/start',
+  end: 'game/end',
+  snapshot: 'game/snapshot',
+  pay: 'game/pay'
 }
 
 export function checkCondition(condition: boolean, errorMessage: string): void {
@@ -32,3 +35,18 @@ export type StartWeekRequest = {
   postType: PostType.startWeek
 };
 
+//bots
+export type ConsumerEvent<Response> = RoundEvent<Response>
+export type Offering = { offeringOptions: PostEntryResponse[], offering: PostEntryResponse }
+export type RoundEvent<Response> = { res?: Response, err?: string }
+export type Bid = { message: string, payload: { offerings: ConsumerEvent<Offering>[], currentWeek: CalfEvent<PostEntryResponse> } }
+export type RunEnd = { message: string, payload: End }
+export type RunPay = { message: string, payload: Pay }
+export type RunSnapShot = { message: string, payload: SnapShot }
+export type CalfEvent<Response> = RoundEvent<Response>
+
+export type Retire = { retiredWeek: PostEntryResponse, nextCurrentDate: string }
+export type SnapShot = { currentWeek: PostEntryResponse, offerings: PostEntryResponse[], sacrifice: PostEntryResponse }
+export type Start = { startedWeek: PostEntryResponse, }
+export type Pay = { payments: string[], }
+export type End = { end: string, }
